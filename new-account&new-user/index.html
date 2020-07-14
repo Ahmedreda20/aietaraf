@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="قم بارسال اعتراف من قلبك لصديقك او لشخص ما تود ان تعترف له بشيء ما بداخلك بدون معرفة من انت">
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="keywords" content="love crush i love you Aietaraf li aietaraf li aietaraf  heart">
+    <link rel="icon" href="../img/couple.png" type="image/png">
+    <link rel="stylesheet" href="../style/style.css">
+    <title>Aietaraf li || اعترفلي</title>
+</head>
+<body>
+    <header>
+<div class="logo">
+    <a href="#">
+        <img src="../img/couple.png" alt="logo">
+        اعترفلي
+    </a>
+</div>
+<div class="reg">
+    <button class="btn-sign-in">
+        <a href="../login/">تسجيل الدخول</a>
+    </button>
+    <button class="btn-sign-up">
+        <a href="">حساب جديد</a>
+    </button>
+</div>
+    </header>
+    <div class="container">
+        <div class="box">
+            <img src="../img/couple.png" alt="">
+            <h1>
+                تسجيل حساب جديد
+            </h1>
+        <form class="sing-up-form">
+            <div class="group-form">
+                <label for="name">الاسم بالكامل</label>
+                <input type="text" id="fullname" required autocomplete="off">
+            </div>
+            <div class="group-form">
+                <label for="name">اسم المستخدم</label>
+                <input type="text" id="username" required autocomplete="off" placeholder="lorem190.aietaraf">
+            </div>
+            <div class="group-form">
+                <label for="name"> البريد الالكتروني</label>
+                <input type="email" id="email" required autocomplete="off" placeholder="example@example.com">
+            </div>
+            <div class="group-form">
+                <label for="name"> كلمة السر </label>
+                <input type="password" id="password" required autocomplete="off" placeholder=".... .... ....">
+            </div>
+            <div class="group-form">
+                <label for="about">المزيد عني</label>
+                <textarea required id="about"></textarea>
+            </div>
+            <div class="group-form">
+                <button class="btn-submit" type="submit">
+                    تسجيل
+                </button>
+            </div>
+        </form>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-storage.js"></script>
+    <script type="text/javascript">
+    var firebaseConfig = {
+    apiKey: "AIzaSyAj0hHFR8cSUHCpKUg-j200K8nO7CzVIDM",
+    authDomain: "aietaraf.firebaseapp.com",
+    databaseURL: "https://aietaraf.firebaseio.com",
+    projectId: "aietaraf",
+    storageBucket: "aietaraf.appspot.com",
+    // messagingSenderId: "840654250498",
+    appId: "1:840654250498:web:bea3a7f8d462ceaa897d1b",
+    measurementId: "G-WHJG5TVG7M"
+  };
+  firebase.initializeApp(firebaseConfig);
+
+  const form = document.querySelector('.sing-up-form');
+  form.addEventListener('submit' ,  function(e){
+      e.preventDefault();
+      const fullname = form['fullname'].value;
+      const email = form['email'].value;
+      const password = form['password'].value;
+      const about = form['about'].value;
+ 
+  firebase.auth().createUserWithEmailAndPassword(email, password).then(cred =>{ 
+            form.reset();
+            firebase.firestore().collection('users').doc(cred.user.uid).set({
+                name: fullname,
+                email: email,
+                about: about,
+                password: password
+            });
+        });
+        }); 
+    </script>
+</body>
+</html>
