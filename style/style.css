@@ -18,6 +18,7 @@ body{
     scroll-behavior: smooth;
     background: white;
     font-family: 'kufi-arabic';
+    user-select: none;
 }
 ::-webkit-scrollbar{
     width: 8px;
@@ -173,9 +174,6 @@ header img{
 .container{
     width: 100%;
     height: 91.8vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 .box{
     width: 500px;
@@ -185,6 +183,8 @@ header img{
     box-shadow: 0 0 100px rgb(224, 224, 224);
     padding-bottom: 20px;
     position: relative;
+    display: block;
+    margin: 70px auto;
 }
 .box:after{
     position: absolute;
@@ -197,19 +197,26 @@ header img{
     bottom: 0;
     left: 25%;
 }
-.box img{
+.aietaraf-img{
+    width: 80px;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px auto;
+    margin-top: 0 !important;
+}
+.aietaraf-img img{
     width: 80px;
     height: 80px;
     border-radius: 100px;
-    display: block;
-    margin: 10px auto;
-    margin-top: 20px !important;
 }
 .box h1{
     font-size: 20px;
     font-weight: lighter;
     padding: 10px;
     text-align: center;
+    margin-top: -40px;
 }
 .group-form{
     width: 90%;
@@ -218,6 +225,11 @@ header img{
     /* background: grey; */
     position: relative;
     direction: rtl;
+}
+.box p{
+    text-align: center;
+    padding: 5px;
+    color: #e8505b;
 }
 .group-form input{
     display: block;

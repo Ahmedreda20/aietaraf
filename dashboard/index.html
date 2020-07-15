@@ -59,7 +59,14 @@
 <div class="container">
 
     <div class="box">
+        <div class="profile-pic">
+            <input type="file" id="profile" accept="image/*">
+            <label for="profile">
+                تغيير الصورة الشخصية
+            </label>
+        </div>
         <div class="user-img">
+         
             <div class="img">
                 <svg  viewBox="0 0 33.83098862 33.83098862" xmlns="http://www.w3.org/2000/svg">
                     <circle cx="16.9" cy="16.9" r="15.9"></circle>
@@ -115,6 +122,10 @@
 <div class="create-new-message">
     <div class="popup">
         <div class="box">
+            <button class="btn-close">
+                <span></span>
+                <span></span>
+            </button>
         <form class="sendmessage">
             <div class="group-form">
                 <label for="userid">ادخل  <span>ID</span> الخاص بالمرسل اليه  </label>
@@ -133,8 +144,6 @@
         </div>
     </div>
 </div>
-<script src="../js/main.js"></script>
-<script src="../js/auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-database.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-firestore.js"></script>
@@ -163,19 +172,23 @@
 var username = document.getElementById('fullname')
 var useremail = document.getElementById('email')
 var userabout = document.getElementById('more')
+
  firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
-    copyText.value = user.uid
-    db.collection('users').doc(user.uid).get().then(function(doc) {
+    copyText.value = user.uid;
+    var img = document.querySelector('#user-img');
 
+firebase.storage().ref('users/'  + user.uid + '/profile.png').getDownloadURL().then(imgUrl =>{
+ img.src = imgUrl
+ });
+    db.collection('users').doc(user.uid).get().then(function(doc) {
         if (doc.exists) {
             username.innerHTML = doc.data().name;
             useremail.innerHTML = doc.data().email;
             userabout.innerHTML = doc.data().about;
-    } else {
-        location.href = "../"
-    }
+    } 
     });
+  
 
     db.collection("message").doc(user.uid).collection('messages').get().then(function(querySnapshot) {
     querySnapshot.forEach(function(doc) {
@@ -190,10 +203,15 @@ var userabout = document.getElementById('more')
           msg.setAttribute('class' ,  'msg')
           msgContent.setAttribute('class' ,  'msg-content')
           content.innerHTML = doc.data().msg
-     }
+                 }
      });
     });
+
+
 }
+// }else{
+//     location.href = "../login"
+// }
 })
 
 document.querySelector('.btn-signout').onclick = function(){
@@ -220,7 +238,6 @@ messageForm.addEventListener('submit' ,  function(e){
 var newMessage = document.getElementById('newMessage').onclick = function(){
 document.querySelector('.create-new-message').style.display = 'flex';
 };
-
 var copyText = document.getElementById("user");
 var btn = document.querySelector('.btn-copy');
 btn.addEventListener('click' ,  function(){
@@ -228,6 +245,20 @@ btn.addEventListener('click' ,  function(){
   copyText.setSelectionRange(0, 99999)
   document.execCommand("copy");
 });
+var btnClose = document.querySelector('.btn-close')
+btnClose.addEventListener('click' ,  function(){
+    document.querySelector('.create-new-message').style.display = 'none';
+
+});
+
+
+var loader = document.getElementById('profile').onchange = function(e){
+     var file = e.target.files[0];
+     console.log(file)
+     firebase.storage().ref('users/' + copyText.value + '/profile.png').put(file).then(function(){
+     console.log('image already saved');
+     })
+        }
 </script>
 </body>
 </html>

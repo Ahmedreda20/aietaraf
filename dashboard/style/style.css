@@ -493,6 +493,50 @@ header img{
     margin: 10px auto;outline: none;
     cursor: pointer;
 }
+.btn-close{
+    padding: 5px;
+    border: none;
+    outline: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-radius: 100px;
+    cursor: pointer;
+    background: none;
+}
+.btn-close span{
+    width: 20px;
+    height: 3px;
+    border-radius: 100px;
+    background: #e8505b;
+    display: block;
+    margin: 5px auto;
+}
+.btn-close span:first-child{
+    transform: rotate(45deg);
+}
+.btn-close span:last-child{
+    transform: rotate(-45deg);
+    margin-top: -8px;
+}
+.profile-pic{
+    background: red;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 15px 10px;
+}
+.profile-pic input{
+    display: none;
+}
+.profile-pic label{
+    color: white;
+    background: #040a25;
+    padding: 5px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
 @media only screen and (max-width:320px){
     .settings{
         width: 80% !important;

@@ -30,18 +30,21 @@
     </header>
     <div class="container">
         <div class="box">
-            <img src="../img/couple.png" alt="">
-            <h1>
+            <div class="aietaraf-img">
+                <img src="../img/couple.png" alt="">
+            </div>
+                        <h1>
                 تسجيل الدخول
             </h1>
+            <p></p>
         <form class="sing-in-form">
             <div class="group-form">
                 <label for="name"> البريد الالكتروني</label>
-                <input type="email" id="email" required autocomplete="off" placeholder="example@example.com">
+                <input type="email" id="email" required  placeholder="example@example.com">
             </div>
             <div class="group-form">
                 <label for="name"> كلمة السر </label>
-                <input type="password" id="pass" required autocomplete="off" placeholder=".... .... ....">
+                <input type="password" id="password" required autocomplete="off" placeholder=".... .... ....">
             </div>
             <div class="group-form">
                 <button class="btn-submit btn-sign-in" type="submit">
@@ -81,15 +84,18 @@ const form = document.querySelector('.sing-in-form');
       const email = form['email'].value;
       const password = form['password'].value;
  
-  firebase.auth().signInWithEmailAndPassword(email, password).catch(function() {
-      form.reset();
-      setTimeout(() => {
-          location.href = '../dashboard'
-      }, 1000);
-}).catch(error =(e) =>{
-    console.log(error.messsage)
+  firebase.auth().signInWithEmailAndPassword(email, password).then(cred => {
+    //   form.reset();
+}).catch(function(error){
+    document.querySelector('.box p').innerHTML = "هناك خطأ ما في البريد الالكتروني او كملة السر";
 });
-        }); 
+}); 
+
+firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+      location.href = "../dashboard"
+  }
+})
 </script>
 </body>
 </html>

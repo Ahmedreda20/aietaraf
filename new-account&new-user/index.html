@@ -30,7 +30,9 @@
     </header>
     <div class="container">
         <div class="box">
-            <img src="../img/couple.png" alt="">
+            <div class="aietaraf-img">
+                <img src="../img/couple.png" alt="">
+            </div>
             <h1>
                 تسجيل حساب جديد
             </h1>
@@ -100,6 +102,12 @@
             });
         });
         }); 
+
+        firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+        location.href = "../dashboard"
+        }
+        })
     </script>
 </body>
 </html>
