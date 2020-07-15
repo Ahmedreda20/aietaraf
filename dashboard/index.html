@@ -95,7 +95,7 @@
                         <button class="btn-copy">
                             Copy
                             </button>
-                            <input type="text" disabled placeholder="username" id="user">
+                            <input type="text" disabled placeholder="user id" id="user">
                         </div>
                     </li>
                     <li id="more">
@@ -129,7 +129,7 @@
         <form class="sendmessage">
             <div class="group-form">
                 <label for="userid">ادخل  <span>ID</span> الخاص بالمرسل اليه  </label>
-                <input type="text" id="userid" placeholder="lorem123.aietaraf" min="0" maxlength="28" required>
+                <input type="text" id="userid" placeholder="lthsngsvoecapebsuthsqebotfsg" min="0" maxlength="28" required>
             </div>
             <div class="group-form">
                 <label for="message">اكتب رسالتك</label>
@@ -264,6 +264,29 @@ var loader = document.getElementById('profile').onchange = function(e){
      console.log('image already saved');
      })
         }
+document.addEventListener('contextmenu', function(e) {
+e.preventDefault();
+});
+document.onkeydown = function(e) {
+if(event.keyCode == 123) {
+return false;
+}
+if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
+return false;
+}
+if(e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) {
+return false;
+}
+if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
+return false;
+}
+if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
+return false;
+}
+if(e.ctrlKey && e.keyCode == 'S'.charCodeAt(0)) {
+return false;
+}
+}
 </script>
 </body>
 </html>
