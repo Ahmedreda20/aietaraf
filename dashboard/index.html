@@ -175,22 +175,26 @@ var userabout = document.getElementById('more')
 
  firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
-    copyText.value = user.uid;
     var img = document.querySelector('#user-img');
-
-firebase.storage().ref('users/'  + user.uid + '/profile.png').getDownloadURL().then(imgUrl =>{
- img.src = imgUrl
- });
+    var storage = firebase.storage().ref('users/' + user.uid);
+    if(storage){
+        firebase.storage().ref('users/' + user.uid + '/profile.png').getDownloadURL().then(imgUrl =>{
+            img.src = imgUrl;
+        }).catch(function(error){
+            console.log(error.message)
+        });
+    }
     db.collection('users').doc(user.uid).get().then(function(doc) {
         if (doc.exists) {
             username.innerHTML = doc.data().name;
             useremail.innerHTML = doc.data().email;
             userabout.innerHTML = doc.data().about;
+                copyText.value = doc.data().username;
+
     } 
     });
-  
-
-    db.collection("message").doc(user.uid).collection('messages').get().then(function(querySnapshot) {
+setTimeout(() => {
+    db.collection("message").doc(copyText.value).collection('messages').get().then(function(querySnapshot) {
     querySnapshot.forEach(function(doc) {
                  if (doc.exists) {
          parentBox.remove()
@@ -206,8 +210,7 @@ firebase.storage().ref('users/'  + user.uid + '/profile.png').getDownloadURL().t
                  }
      });
     });
-
-
+}, 1000);
 }
 // }else{
 //     location.href = "../login"
@@ -238,6 +241,7 @@ messageForm.addEventListener('submit' ,  function(e){
 var newMessage = document.getElementById('newMessage').onclick = function(){
 document.querySelector('.create-new-message').style.display = 'flex';
 };
+
 var copyText = document.getElementById("user");
 var btn = document.querySelector('.btn-copy');
 btn.addEventListener('click' ,  function(){
@@ -245,6 +249,7 @@ btn.addEventListener('click' ,  function(){
   copyText.setSelectionRange(0, 99999)
   document.execCommand("copy");
 });
+
 var btnClose = document.querySelector('.btn-close')
 btnClose.addEventListener('click' ,  function(){
     document.querySelector('.create-new-message').style.display = 'none';

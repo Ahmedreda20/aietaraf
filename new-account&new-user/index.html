@@ -90,6 +90,7 @@
       const fullname = form['fullname'].value;
       const email = form['email'].value;
       const password = form['password'].value;
+      const username = form['username'].value;
       const about = form['about'].value;
  
   firebase.auth().createUserWithEmailAndPassword(email, password).then(cred =>{ 
@@ -98,6 +99,7 @@
                 name: fullname,
                 email: email,
                 about: about,
+                username: username,
                 password: password
             });
         });
@@ -105,7 +107,11 @@
 
         firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
-        location.href = "../dashboard"
+            var img = document.querySelector('.aietaraf-img img');
+            var imgSrc = img.getAttribute('src')
+            setTimeout(() => {
+                 location.href = "../dashboard"
+            }, 1000);
         }
         })
     </script>
